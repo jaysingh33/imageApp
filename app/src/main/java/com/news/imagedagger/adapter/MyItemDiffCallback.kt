@@ -1,4 +1,4 @@
-package com.news.imagedagger.paging
+package com.news.imagedagger.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.news.imagedagger.model.ImageDataItem

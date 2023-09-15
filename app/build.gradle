@@ -66,6 +66,9 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.2"
     annotationProcessor "androidx.room:room-ktx:2.5.2"
     implementation "androidx.room:room-ktx:2.5.2"
+    implementation 'androidx.room:room-paging:2.4.3'
+
+    // implementation "androidx.paging:paging-runtime-ktx:3.2.1"
 
     implementation 'com.github.bumptech.glide:glide:4.16.0'
 
@@ -79,7 +82,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
 
-    implementation "androidx.paging:paging-runtime:3.0.1"
+    implementation "androidx.paging:paging-runtime:3.2.1"
 
+    implementation "androidx.paging:paging-compose:3.2.1"
 
 }

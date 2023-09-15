@@ -1,31 +1,29 @@
 package com.news.imagedagger.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
+import androidx.paging.*
 import com.news.imagedagger.api.ImageService
+import com.news.imagedagger.db.ImageDao
 import com.news.imagedagger.db.ImageDatbase
 import com.news.imagedagger.model.ImageDataItem
-import com.news.imagedagger.utils.NetworkUtils
+import com.news.imagedagger.paging.ImageRemoteMediator
+import kotlinx.coroutines.flow.Flow
 
 class ImageRepository(
     private val imageService: ImageService,
-    val imageDatbase: ImageDatbase,
+    private val imageDatabase: ImageDatbase,
     private val applicationContext: Context
 ) {
-
-
-val images: LiveData<List<ImageDataItem>> = imageDatbase.imageDao().getImage()
-
-
-    val localImages: LiveData<List<ImageDataItem>> = imageDatbase.imageDao().getImage()
-
-
-    suspend fun getImage(page: Int, limit: Int) {
-        if (NetworkUtils.internetAvailable(applicationContext)) {
-            val result = imageService.getImages(page, limit)
-            if (result.isSuccessful && result.body() != null) {
-                imageDatbase.imageDao().addImage(result.body()!!)
-            }
-        }
+    @OptIn(ExperimentalPagingApi::class)
+    fun getImages(): Flow<PagingData<ImageDataItem>> {
+        return Pager(
+            config = PagingConfig(pageSize = 15),
+            remoteMediator = ImageRemoteMediator(imageService, imageDatabase, applicationContext),
+            pagingSourceFactory = { imageDatabase.imageDao().getAllItems() }
+        ).flow
     }
 }
+
+
+
+

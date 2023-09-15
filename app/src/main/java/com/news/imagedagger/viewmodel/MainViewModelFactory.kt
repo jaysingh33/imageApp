@@ -1,5 +1,6 @@
 package com.news.imagedagger.viewmodel
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.news.imagedagger.repository.ImageRepository
